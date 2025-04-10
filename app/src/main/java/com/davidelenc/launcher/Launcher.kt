@@ -16,10 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,15 +25,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 class Launcher : ComponentActivity() {
-    companion object {
-        var self: Launcher? = null
-        private var apps by mutableStateOf(listOf<Pair<String, String>>())
-    }
     @OptIn(ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             val lazyListState = rememberLazyListState()
+            val apps = remember { listOf(Pair("Impostazioni", "com.google.android.apps.wearable.settings"))}
+            val interactionSource = remember { MutableInteractionSource() }
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = Color.Black
@@ -54,7 +49,7 @@ class Launcher : ComponentActivity() {
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .combinedClickable(
-                                        interactionSource = remember { MutableInteractionSource() },
+                                        interactionSource = interactionSource,
                                         indication = null,
                                         onClick = {
                                             try {
@@ -79,16 +74,5 @@ class Launcher : ComponentActivity() {
                 }
             }
         }
-    }
-    override fun onResume() {
-        super.onResume()
-        self = this
-        if(apps.isEmpty()){
-            apps = listOf(Pair("Impostazioni", "com.google.android.apps.wearable.settings"))
-        }
-    }
-    override fun onStop() {
-        super.onStop()
-        self = null
     }
 }
