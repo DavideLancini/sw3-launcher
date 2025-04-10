@@ -32,7 +32,6 @@ class Launcher : ComponentActivity() {
         var self: Launcher? = null
         private var apps by mutableStateOf(listOf<Pair<String, String>>())
     }
-
     @OptIn(ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,21 +80,15 @@ class Launcher : ComponentActivity() {
             }
         }
     }
-
     override fun onResume() {
         super.onResume()
         self = this
         if(apps.isEmpty()){
-            load()
+            apps = listOf(Pair("Impostazioni", "com.google.android.apps.wearable.settings"))
         }
     }
-
     override fun onStop() {
         super.onStop()
         self = null
-    }
-
-    private fun load() {
-        apps = listOf(Pair("Impostazioni", "com.google.android.apps.wearable.settings"))
     }
 }
