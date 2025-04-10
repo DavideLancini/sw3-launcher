@@ -1,0 +1,26 @@
+# Gradle
+.gradle/
+build/
+
+# IntelliJ IDEA (IDE comunemente usato con Kotlin)
+.idea/
+*.iml
+
+# Kotlin
+*.class
+*.jar
+*.war
+*.ear
+out/
+
+# Local configuration files
+local.properties
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Linux
+*~
